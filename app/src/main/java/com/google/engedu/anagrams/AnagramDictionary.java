@@ -40,7 +40,7 @@ import java.util.Random;
             }
             //key doesn't exist
             else {
-                ArrayList<String> arrayList=new ArrayList<>();
+                ArrayList<String> arrayList=new ArrayList<String>();
                 arrayList.add(word);
                 lettersToWord.put(k,arrayList);
             }
@@ -58,22 +58,40 @@ import java.util.Random;
 
     public ArrayList<String> getAnagramsWithOneMoreLetter(String word) {
         ArrayList<String> result = new ArrayList<String>();
-        String k;
-        for(char i='a';i<'z';i++ )
+        String k,l;
+        for(char i='a';i<'z';i++)
         {
-            k=sortLetters(word.concat(""+i));
-            if(lettersToWord.containsKey(k)){
+            l=sortLetters(word.concat(""+i));
+            if (lettersToWord.containsKey(l)) {
                 //Get the words
-                ArrayList<String> words=lettersToWord.get(k);
+                ArrayList<String> words = lettersToWord.get(l);
 
                 for (int w = 0; w < words.size(); w++) {
                     String wrd = words.get(w);
-
                     // wrd is the new word
                     // word is the base word
                     if (isGoodWord(wrd, word)) {
                         result.add(wrd);
                     }
+                }
+
+            }
+            for(char j='a';j<'z';j++) {
+                k = sortLetters(word.concat("" + j + i));
+
+                if (lettersToWord.containsKey(k)) {
+                    //Get the words
+                    ArrayList<String> words = lettersToWord.get(k);
+
+                    for (int w = 0; w < words.size(); w++) {
+                        String wrd = words.get(w);
+                        // wrd is the new word
+                        // word is the base word
+                        if (isGoodWord(wrd, word)) {
+                            result.add(wrd);
+                        }
+                    }
+
                 }
 
             }
